@@ -1,4 +1,5 @@
-const {Usuarios} = require('../models')
+const {Usuarios} = require('../models');
+const { get } = require('../routes/users');
 
 const createNewUser = async (request, response) => {
     try{
@@ -51,5 +52,5 @@ const getAllUsers = async (request, response) => {
 
 module.exports = {
     createNewUser,
-    
+    getAllUsers
 }
