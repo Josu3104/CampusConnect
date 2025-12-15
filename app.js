@@ -6,8 +6,31 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 var app = express();
+
+
+// Swagger config (después de inicializar app)
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Campus connect API documentation',
+      version: '0.1.0',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000/api',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'], // Archivos donde se encuentran las anotaciones de Swagger
+};
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
